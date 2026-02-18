@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 18th Birthday Gracy ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    text-align:center;
+    background: linear-gradient(135deg,#ff758c,#ff7eb3);
+    color:white;
+    overflow:hidden;
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    padding:40px 18px;
+    max-width:700px;
+    margin:auto;
+}
+
+h1{
+    font-size: clamp(2rem,6vw,3.5rem);
+    margin-bottom:10px;
+}
+
+h2{
+    font-weight:400;
+    margin-top:0;
+}
+
+p{
+    font-size: clamp(1rem,4vw,1.2rem);
+    line-height:1.6;
+}
+
+button{
+    margin-top:25px;
+    padding:14px 26px;
+    font-size:1rem;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:#ff4f81;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 4px 15px rgba(0,0,0,0.25);
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+    z-index:1;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+    <h1>🎉 Happy 18th Birthday Gracy 🎂</h1>
+    <h2>My Love ❤️</h2>
+
+    <p>
+        Today is a very special day because the most beautiful girl I have ever seen 
+        came into this world. Gracy, you are not just my girlfriend, you are my happiness, 
+        my peace, and my biggest blessing.
+    </p>
+
+    <p>
+        I love you so much, and I wish this new chapter of your life brings you success, 
+        laughter, and endless smiles. Please always take care of your health, eat well, 
+        rest properly, and keep shining like the star you are.
+    </p>
+
+    <p>
+        May your 18th year be filled with dreams coming true, unforgettable memories, 
+        and moments that make your heart smile. I’m lucky to have you in my life. ❤️
+    </p>
+
+    <button onclick="launchConfetti()">Celebrate 🎊</button>
+</div>
+
+<script>
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+}
+window.addEventListener("resize",resize);
+resize();
+
+let confetti=[];
+
+function createConfetti(){
+    for(let i=0;i<180;i++){
+        confetti.push({
+            x:Math.random()*canvas.width,
+            y:Math.random()*canvas.height-canvas.height,
+            r:Math.random()*6+2,
+            d:Math.random()*60,
+            color:`hsl(${Math.random()*360},70%,60%)`
+        });
+    }
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    confetti.forEach(c=>{
+        ctx.fillStyle=c.color;
+        ctx.fillRect(c.x,c.y,c.r,c.r);
+    });
+    update();
+}
+
+function update(){
+    confetti.forEach(c=>{
+        c.y+=Math.cos(c.d)+2;
+        c.x+=Math.sin(c.d);
+        if(c.y>canvas.height){
+            c.y=-10;
+            c.x=Math.random()*canvas.width;
+        }
+    });
+}
+
+function animate(){
+    draw();
+    requestAnimationFrame(animate);
+}
+
+function launchConfetti(){
+    confetti=[];
+    createConfetti();
+}
+
+animate();
+</script>
+
+</body>
+</html>
